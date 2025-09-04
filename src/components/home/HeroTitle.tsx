@@ -47,11 +47,8 @@ export default function HeroTitle({
     <div
       className="relative z-0 select-none pointer-events-none hero-intro"
       style={{
-        // @ts-expect-error CSS var passthrough
         ['--hero-initial-scale' as any]: initialScale,
-        // @ts-expect-error CSS var passthrough
         ['--hero-initial-shift' as any]: `${initialShiftPx}px`,
-        // @ts-expect-error CSS var passthrough
         ['--hero-intro-duration' as any]: `${introDurationMs}ms`,
       }}
     >
