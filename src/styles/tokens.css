@@ -1,0 +1,15 @@
+:root {
+  --bg: 255 255 255;
+  --fg: 17 17 17;
+  --primary: 17 17 17;
+  --border: 229 231 235;
+  --muted: 68 68 68;
+  --radius: 8px;
+}
+[data-theme="dark"] {
+  --bg: 17 17 17;
+  --fg: 243 244 246;
+  --primary: 243 244 246;
+  --border: 55 65 81;
+  --muted: 156 163 175;
+}
