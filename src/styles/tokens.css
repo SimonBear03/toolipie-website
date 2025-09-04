@@ -5,6 +5,10 @@
   --border: 229 231 235;
   --muted: 68 68 68;
   --radius: 8px;
+  /* typed color vars for transitions */
+  --bg-color: rgb(255 255 255);
+  --fg-color: rgb(17 17 17);
+  --border-color: rgb(229 231 235);
 }
 [data-theme="dark"] {
   --bg: 17 17 17;
@@ -12,4 +16,8 @@
   --primary: 243 244 246;
   --border: 55 65 81;
   --muted: 156 163 175;
+  /* typed color vars for transitions */
+  --bg-color: rgb(17 17 17);
+  --fg-color: rgb(243 244 246);
+  --border-color: rgb(55 65 81);
 }
