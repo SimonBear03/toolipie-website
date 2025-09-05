@@ -1,11 +1,11 @@
 # Toolipie Website
 
-A minimal Next.js 14 (App Router, TypeScript) site set up for static export to GitHub Pages with Tailwind CSS powered by design tokens and light/dark via `data-theme`.
+A minimal Next.js 15 (App Router, TypeScript) site set up for static export to GitHub Pages with Tailwind CSS powered by design tokens and light/dark via `data-theme`. Uses React 19.
 
 ## Tech
-- Next.js 14 App Router (TypeScript)
-- Tailwind CSS with CSS variables tokens (`src/styles/tokens.css`)
-- Light/dark via `data-theme` attribute (no UI toggle logic beyond a simple button)
+- Next.js 15 App Router (TypeScript), React 19
+- Tailwind CSS with CSS variable tokens (`src/styles/tokens.css`)
+- Light/dark via `data-theme` attribute with persisted override and subtle crossfade
 - Static export (`output: 'export'`), unoptimized images, custom domain `toolipie.com` via `public/CNAME`
 - ESLint (Next defaults), Dependabot, GitHub Actions deploy to Pages
 
@@ -32,7 +32,7 @@ npm run build
 # Output is written to ./out because next.config.mjs has output: 'export'
 ```
 
-Note: `next export` is deprecated in Next 14 when using `output: 'export'`. The CI keeps an `export` script for compatibility, but `npm run build` already creates `out/`.
+Note: With `output: 'export'`, `npm run build` writes static assets to `out/`.
 
 ## Deploy (GitHub Pages)
 - Pushing to `main` triggers `.github/workflows/gh-pages.yml` which:
@@ -51,9 +51,48 @@ src/
   hooks/          # React hooks
   types/          # TypeScript types
   styles/         # Tailwind + tokens
-planning/         # Notes only (never imported by the site)
 ```
+
+## Architecture
+
+```mermaid
+graph TD
+  A[App Router pages in src/app] --> B[Root layout: src/app/layout.tsx]
+  B --> C[Navbar]
+  B --> D[Footer]
+  A --> E[Home page: src/app/page.tsx]
+  E --> F[HeroTitle]
+  E --> G[TerminalDemo]
+  E --> H[Reveal]
+
+  subgraph Styling
+    I[src/styles/tokens.css]
+    J[src/styles/globals.css]
+    K[tailwind.config.ts]
+  end
+  C --> J
+  D --> J
+  F --> J
+  G --> J
+  H --> J
+  J --> K
+  I --> K
+```
+
+## Contributing
+
+Contributions are welcome.
+
+1. Fork and create a feature branch from `main`.
+2. Install and run locally:
+   - `nvm use`
+   - `npm install`
+   - `npm run dev`
+3. Ensure quality:
+   - `npm run lint`
+   - `npm run typecheck`
+   - `npm run build` (verifies static export)
+4. Open a PR describing the change.
 
 ## Notes
 - Images are unoptimized for static export compatibility
-- `planning/` is not imported anywhere in the site

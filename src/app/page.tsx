@@ -33,10 +33,10 @@ export default function Page() {
       </Reveal>
       <Reveal delay={200}>
         <div className="mt-8 flex gap-3">
-          <Link href="/how-it-works" className="rounded-md border border-border px-3 py-2 text-primary">
+          <Link href="/how-it-works" className="rounded-md border ui-outline px-3 py-2 text-primary">
             How it works
           </Link>
-          <Link href="/use-cases" className="rounded-md border border-border px-3 py-2 text-muted hover:text-primary">
+          <Link href="/use-cases" className="rounded-md border ui-outline px-3 py-2 text-muted hover:text-primary">
             Explore use cases
           </Link>
         </div>
@@ -100,7 +100,7 @@ export default function Page() {
         </p>
       </Reveal>
       <Reveal delay={200}>
-        <pre className="mt-4 overflow-x-auto rounded-md border border-border p-3 text-sm text-muted">
+        <pre className="mt-4 overflow-x-auto rounded-md border ui-outline p-3 text-sm text-muted">
 {`# place files in ./input/md-to-pdf
 # run the tool via the CLI
 # outputs written to ./output/md-to-pdf
@@ -127,10 +127,10 @@ toolipie run md-to-pdf --input ./input/md-to-pdf --output ./output/md-to-pdf`}
       {/* CTA */}
       <Reveal delay={150}>
         <div className="mt-10 flex flex-wrap gap-3">
-          <Link href="/contribute" className="rounded-md border border-border px-3 py-2 text-primary">
+          <Link href="/contribute" className="rounded-md border ui-outline px-3 py-2 text-primary">
             Contribute a tool
           </Link>
-          <Link href="/about" className="rounded-md border border-border px-3 py-2 text-muted hover:text-primary">
+          <Link href="/about" className="rounded-md border ui-outline px-3 py-2 text-muted hover:text-primary">
             About the project
           </Link>
         </div>
@@ -138,4 +138,4 @@ toolipie run md-to-pdf --input ./input/md-to-pdf --output ./output/md-to-pdf`}
     </section>
   );
 }
-// TODO: implement landing page
+ 

@@ -78,10 +78,10 @@ export default function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label="Toggle theme"
-      className="rounded-md border border-border px-2 py-1 text-muted hover:text-primary"
+      className="inline-flex h-8 items-center justify-center gap-2 rounded-md border ui-outline px-2 text-sm text-muted hover:text-primary"
     >
       {theme === 'light' ? 'Light' : 'Dark'}
     </button>
   );
 }
-// TODO: implement theme toggle (set data-theme, persist)
+ 

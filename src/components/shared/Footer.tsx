@@ -5,4 +5,4 @@ export default function Footer() {
     </footer>
   );
 }
-// TODO: implement shared footer
+ 

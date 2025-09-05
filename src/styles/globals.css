@@ -126,15 +126,8 @@ html.theme-crossfade::before {
   transition: opacity 1000ms ease;
 }
 
-/* Darker terminal frame */
-.terminal-frame { border-color: rgb(var(--fg) / 0.22) !important; }
-/* Terminal divider lines matching frame */
-.terminal-divider {
-  border-color: rgb(var(--fg) / 0.22) !important;
-  transition: border-color 1000ms ease;
-}
-/* Global UI divider line */
-.ui-divider {
+/* Unified UI outline/divider color (matches terminal + navbar line) */
+.ui-outline, .ui-divider, .terminal-divider, .terminal-frame {
   border-color: rgb(var(--fg) / 0.22) !important;
   transition: border-color 1000ms ease;
 }

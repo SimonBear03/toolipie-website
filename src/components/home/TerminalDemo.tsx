@@ -301,7 +301,7 @@ export default function TerminalDemo() {
   }, [scene]);
 
   return (
-    <div className="rounded-md border border-border terminal-frame bg-bg shadow-sm overflow-hidden flex flex-col">
+    <div className="rounded-md border ui-outline terminal-frame bg-bg shadow-sm overflow-hidden flex flex-col">
       {/* Terminal header */}
       <div className="border-b border-border terminal-divider px-3 py-1 text-base text-muted whitespace-nowrap flex items-center gap-2">
         <div className="flex items-center gap-1 mr-2">

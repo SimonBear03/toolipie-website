@@ -25,7 +25,7 @@ export default function HowItWorksPage() {
         </p>
       </Reveal>
       <Reveal delay={150}>
-        <pre className="mt-3 overflow-x-auto rounded-md border border-border p-3 text-sm text-muted">
+        <pre className="mt-3 overflow-x-auto rounded-md border ui-outline p-3 text-sm text-muted">
 {`my-tool/
   manifest.json     # name, version, inputs, outputs, params
   run.py            # or run.js — entry point

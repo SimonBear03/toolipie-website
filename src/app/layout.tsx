@@ -15,10 +15,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html suppressHydrationWarning data-theme="dark" lang="en">
       <body suppressHydrationWarning className="min-h-screen bg-bg text-fg flex flex-col">
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pt-[var(--nav-height)]">{children}</main>
         <Footer />
       </body>
     </html>
   );
 }
-// TODO: implement root layout importing globals.css, Navbar, Footer
+ 
