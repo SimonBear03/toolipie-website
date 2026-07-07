@@ -44,20 +44,22 @@ export default function HeroTitle({
   }, [maxShiftPx, maxScale]);
 
   return (
-    <div
-      className="relative z-0 select-none pointer-events-none hero-intro"
-      style={{
-        ['--hero-initial-scale' as any]: initialScale,
-        ['--hero-initial-shift' as any]: `${initialShiftPx}px`,
-        ['--hero-intro-duration' as any]: `${introDurationMs}ms`,
-      }}
-    >
+    <div className="relative z-0 max-w-full select-none overflow-hidden pointer-events-none">
       <div
-        ref={innerRef}
-        className="text-7xl md:text-9xl font-bold text-primary text-center hero-scroll"
-        style={{ transformOrigin: '50% 65%' }}
+        className="max-w-full hero-intro"
+        style={{
+          ['--hero-initial-scale' as any]: initialScale,
+          ['--hero-initial-shift' as any]: `${initialShiftPx}px`,
+          ['--hero-intro-duration' as any]: `${introDurationMs}ms`,
+        }}
       >
-        {text}
+        <div
+          ref={innerRef}
+          className="whitespace-nowrap text-center text-6xl font-bold leading-none text-primary hero-scroll sm:text-7xl md:text-9xl"
+          style={{ transformOrigin: '50% 65%' }}
+        >
+          {text}
+        </div>
       </div>
     </div>
   );

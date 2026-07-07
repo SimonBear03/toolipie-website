@@ -1,25 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+>
   <url>
     <loc>https://toolipie.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolipie.com/en" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://toolipie.com/zh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolipie.com/en" />
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://toolipie.com/use-cases</loc>
+    <loc>https://toolipie.com/en</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolipie.com/en" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://toolipie.com/zh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolipie.com/en" />
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://toolipie.com/zh</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolipie.com/en" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://toolipie.com/zh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolipie.com/en" />
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://toolipie.com/en/use-cases</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolipie.com/en/use-cases" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://toolipie.com/zh/use-cases" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolipie.com/en/use-cases" />
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://toolipie.com/how-it-works</loc>
+    <loc>https://toolipie.com/zh/use-cases</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolipie.com/en/use-cases" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://toolipie.com/zh/use-cases" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolipie.com/en/use-cases" />
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://toolipie.com/contribute</loc>
+    <loc>https://toolipie.com/en/how-it-works</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolipie.com/en/how-it-works" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://toolipie.com/zh/how-it-works" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolipie.com/en/how-it-works" />
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://toolipie.com/zh/how-it-works</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolipie.com/en/how-it-works" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://toolipie.com/zh/how-it-works" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolipie.com/en/how-it-works" />
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://toolipie.com/en/contribute</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolipie.com/en/contribute" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://toolipie.com/zh/contribute" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolipie.com/en/contribute" />
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://toolipie.com/about</loc>
+    <loc>https://toolipie.com/zh/contribute</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolipie.com/en/contribute" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://toolipie.com/zh/contribute" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolipie.com/en/contribute" />
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://toolipie.com/en/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolipie.com/en/about" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://toolipie.com/zh/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolipie.com/en/about" />
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://toolipie.com/zh/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://toolipie.com/en/about" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://toolipie.com/zh/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://toolipie.com/en/about" />
     <priority>0.5</priority>
   </url>
 </urlset>
-
-
