@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import type { Catalog } from '@/i18n';
 
 type Scene = 'docx' | 'pdfpng';
 
@@ -8,6 +9,7 @@ type ProgressLine = {
   label: string; // full label including counts, e.g., "DOCX 1/3 notes.md" or "PDF→PNG annual 2/5" or "TOTAL 3/8"
   current: number;
   total: number;
+  kind?: 'docx' | 'pdfPng' | 'total';
 };
 
 const BAR_WIDTH = 24;
@@ -20,7 +22,7 @@ function makeBar(current: number, total: number): string {
   return `|${filled}${empty}|`;
 }
 
-export default function TerminalDemo() {
+export default function TerminalDemo({ terminal }: { terminal: Catalog['terminal'] }) {
   // Script-like configs derived from real tools
   const docxFiles = useMemo(() => ['notes.md', 'meeting.md', 'summary.md'], []);
   const pdfJobs = useMemo(
@@ -38,7 +40,6 @@ export default function TerminalDemo() {
   const [fade, setFade] = useState<'in' | 'out'>('in');
   const rafRef = useRef<number | null>(null);
   const timers = useRef<number[]>([]);
-  const [labelWidthCh, setLabelWidthCh] = useState<number>(28);
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const [typedText, setTypedText] = useState<string>('');
   const [visibleRowCount, setVisibleRowCount] = useState<number>(0);
@@ -48,8 +49,9 @@ export default function TerminalDemo() {
 
   // Cleanup timers on unmount
   useEffect(() => {
+    const activeTimers = timers.current;
     return () => {
-      timers.current.forEach(t => window.clearTimeout(t));
+      activeTimers.forEach(t => window.clearTimeout(t));
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
@@ -59,16 +61,8 @@ export default function TerminalDemo() {
     setLines(prev => [...prev, node]);
   };
 
-  // Recompute label width (in "ch") to align bar starts/ends
-  useEffect(() => {
-    if (!progress || progress.length === 0) return;
-    const maxLen = progress.reduce((m, p) => Math.max(m, (p.label || '').length), 0);
-    const clamped = Math.max(20, Math.min(40, maxLen + 2));
-    setLabelWidthCh(clamped);
-  }, [progress]);
-
   const formatCount = (p: ProgressLine): string => {
-    if (p.label.startsWith('MD → DOCX ')) {
+    if (p.kind === 'docx') {
       return `${p.current >= p.total ? 1 : 0}/1`;
     }
     return `${p.current}/${p.total}`;
@@ -105,9 +99,9 @@ export default function TerminalDemo() {
         // finalize: add full line and proceed
         setIsTyping(false);
         pushLine(
-          <div key={`cmd-${full}`}>
-            <span className="text-muted">$ </span>
-            <span className="text-fg">{full}</span>
+          <div key={`cmd-${full}`} className="flex min-w-0">
+            <span className="flex-none text-muted">$ </span>
+            <span className="min-w-0 truncate text-fg">{full}</span>
           </div>
         );
         // Hide the typing prompt and clear its text to avoid duplicate lines
@@ -157,11 +151,17 @@ export default function TerminalDemo() {
       // Initialize tasks to mirror PDF style: per-file lines + TOTAL
       const totalFiles = docxFiles.length;
       const taskStates: ProgressLine[] = docxFiles.map(name => ({
-        label: `MD → DOCX ${name}`,
+        label: `${terminal.labels.docx} ${name}`,
         current: 0,
         total: 10, // smooth visual steps; count column shows 0/1 → 1/1
+        kind: 'docx',
       }));
-      const overall: ProgressLine = { label: `TOTAL`, current: 0, total: totalFiles };
+      const overall: ProgressLine = {
+        label: terminal.labels.total,
+        current: 0,
+        total: totalFiles,
+        kind: 'total',
+      };
       setProgress([...taskStates, overall]);
       scheduleRowReveal(taskStates.length + 1);
 
@@ -192,9 +192,9 @@ export default function TerminalDemo() {
           } else {
             // Completed → output a write line similar to real run and bump TOTAL
             pushLine(
-              <div key={`ok-docx-${index}`}>
-                <span className="text-fg">✓ Processed </span>
-                <span className="text-muted">./output/md-to-docx/{docxFiles[index].replace('.md', '.docx')}</span>
+              <div key={`ok-docx-${index}`} className="flex min-w-0">
+                <span className="flex-none text-fg">✓ {terminal.processed} </span>
+                <span className="min-w-0 truncate text-muted">./output/md-to-docx/{docxFiles[index].replace('.md', '.docx')}</span>
               </div>
             );
             setProgress(prev => {
@@ -231,11 +231,17 @@ export default function TerminalDemo() {
 
       // Initialize per-PDF lines with counts in a separate column and a TOTAL line
       const perPdf: ProgressLine[] = pdfJobs.map(j => ({
-        label: `PDF → PNG ${j.name}`,
+        label: `${terminal.labels.pdfPng} ${j.name}`,
         current: 0,
         total: j.pages,
+        kind: 'pdfPng',
       }));
-      const overall: ProgressLine = { label: `TOTAL`, current: 0, total: totalAll };
+      const overall: ProgressLine = {
+        label: terminal.labels.total,
+        current: 0,
+        total: totalAll,
+        kind: 'total',
+      };
       setProgress([...perPdf, overall]);
       scheduleRowReveal(perPdf.length + 1);
 
@@ -277,9 +283,9 @@ export default function TerminalDemo() {
         if (didComplete && !pdfProcessedEmittedRef.current.has(pdfIdx)) {
           pdfProcessedEmittedRef.current.add(pdfIdx);
           pushLine(
-            <div key={`ok-pdf-${pdfJobs[pdfIdx].name}`}>
-              <span className="text-fg">✓ Processed </span>
-              <span className="text-muted">./output/pdf-to-png/{pdfJobs[pdfIdx].name}/</span>
+            <div key={`ok-pdf-${pdfJobs[pdfIdx].name}`} className="flex min-w-0">
+              <span className="flex-none text-fg">✓ {terminal.processed} </span>
+              <span className="min-w-0 truncate text-muted">./output/pdf-to-png/{pdfJobs[pdfIdx].name}/</span>
             </div>
           );
         }
@@ -301,7 +307,7 @@ export default function TerminalDemo() {
   }, [scene]);
 
   return (
-    <div className="rounded-md border ui-outline terminal-frame bg-bg shadow-sm overflow-hidden flex flex-col">
+    <div className="flex max-w-full min-w-0 flex-col overflow-hidden rounded-md border bg-bg shadow-sm ui-outline terminal-frame">
       {/* Terminal header */}
       <div className="border-b border-border terminal-divider px-3 py-1 text-base text-muted whitespace-nowrap flex items-center gap-2">
         <div className="flex items-center gap-1 mr-2">
@@ -310,13 +316,13 @@ export default function TerminalDemo() {
           <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ backgroundColor: '#10b981' }} />
         </div>
         <span className="text-primary font-semibold">toolipie</span>
-        <span> — terminal</span>
+        <span> - {terminal.titleSuffix}</span>
       </div>
 
       {/* Content: fixed height to prevent page layout shift */}
       <div
         className={
-          `p-3 font-mono text-sm text-muted whitespace-pre h-44 overflow-hidden terminal-transition ${
+          `min-w-0 max-w-full p-3 font-mono text-sm text-muted whitespace-pre h-44 overflow-hidden terminal-transition ${
             fade === 'out' ? 'terminal-fade-out' : 'terminal-fade-in'
           }`
         }
@@ -327,16 +333,16 @@ export default function TerminalDemo() {
         ))}
         {/* typing line (only during typing) */}
         {showTypingLine && (
-          <div>
-            <span className="text-muted">$ </span>
-            <span className="text-fg">{typedText}</span>
-            <span className={`caret ${isWaiting ? 'caret-blink' : ''}`} />
+          <div className="flex min-w-0">
+            <span className="flex-none text-muted">$ </span>
+            <span className="min-w-0 truncate text-fg">{typedText}</span>
+            <span className={`caret flex-none ${isWaiting ? 'caret-blink' : ''}`} />
           </div>
         )}
       </div>
 
       {/* Footer: stationary progress bars area with fixed height for 4 rows */}
-      <div className={`border-t border-border terminal-divider px-4 pb-2 pt-1 font-mono text-sm text-muted h-24 overflow-hidden terminal-transition ${fade === 'out' ? 'terminal-fade-out' : 'terminal-fade-in'}`}>
+      <div className={`h-24 min-w-0 max-w-full overflow-hidden border-t border-border px-4 pb-2 pt-1 font-mono text-sm text-muted terminal-divider terminal-transition ${fade === 'out' ? 'terminal-fade-out' : 'terminal-fade-in'}`}>
         {progress.length > 0 && (
           <div className="mt-0.5 space-y-1 leading-4">
             {progress.map((p, idx) => (
@@ -345,7 +351,7 @@ export default function TerminalDemo() {
                 className={`grid items-baseline transform-gpu transition-all duration-300 ${
                   idx < visibleRowCount ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'
                 }`}
-                style={{ gridTemplateColumns: `${labelWidthCh}ch 7ch 1fr` }}
+                style={{ gridTemplateColumns: 'minmax(0, 1fr) 5ch auto' }}
               >
                 <span className="text-fg truncate">{p.label}</span>
                 <span className="text-muted text-right pr-2">{formatCount(p)}</span>

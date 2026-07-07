@@ -1,10 +1,13 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { Moon, Sun } from 'lucide-react';
+import type { Catalog } from '@/i18n';
+import { navActionClass, navActionIconClass, navActionIconWrapClass } from './navActionClasses';
 
 type Theme = 'light' | 'dark';
 
-export default function ThemeToggle() {
+export default function ThemeToggle({ copy }: { copy: Catalog['theme'] }) {
   const mediaRef = useRef<MediaQueryList | null>(null);
   const mediaListenerRef = useRef<((e: MediaQueryListEvent) => void) | null>(null);
   const [theme, setTheme] = useState<Theme>('dark');
@@ -73,14 +76,21 @@ export default function ThemeToggle() {
     window.localStorage.setItem('themeOverride', next);
   };
 
+  const Icon = theme === 'light' ? Sun : Moon;
+  const label = theme === 'light' ? copy.light : copy.dark;
+
   return (
     <button
       type="button"
       onClick={toggle}
-      aria-label="Toggle theme"
-      className="inline-flex h-8 items-center justify-center gap-2 rounded-md border ui-outline px-2 text-sm text-muted hover:text-primary"
+      aria-label={`${copy.toggle} (${label})`}
+      aria-pressed={theme === 'dark'}
+      title={`${copy.toggle} (${label})`}
+      className={`inline-flex ${navActionClass}`}
     >
-      {theme === 'light' ? 'Light' : 'Dark'}
+      <span className={navActionIconWrapClass}>
+        <Icon className={navActionIconClass} strokeWidth={1.8} aria-hidden="true" />
+      </span>
     </button>
   );
 }

@@ -131,3 +131,69 @@ html.theme-crossfade::before {
   border-color: rgb(var(--fg) / 0.22) !important;
   transition: border-color 1000ms ease;
 }
+
+.nav-action {
+  position: relative;
+  overflow: hidden;
+  background-color: rgb(var(--bg) / 0.72);
+  box-shadow: 0 0 0 rgb(var(--fg) / 0);
+  transition:
+    background-color 220ms ease,
+    box-shadow 220ms ease,
+    color 220ms ease,
+    transform 220ms ease,
+    border-color 1000ms ease;
+}
+
+.nav-action::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgb(var(--fg) / 0.08) 45%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-action:hover {
+  background-color: rgb(var(--fg) / 0.05);
+  box-shadow: 0 8px 24px rgb(var(--fg) / 0.1);
+  transform: translateY(-1px);
+}
+
+.nav-action:hover::before {
+  transform: translateX(120%);
+}
+
+.nav-action:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.nav-action-icon {
+  position: relative;
+  z-index: 1;
+  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-action:hover .nav-action-icon {
+  transform: rotate(-8deg) scale(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-action,
+  .nav-action::before,
+  .nav-action-icon {
+    transition: none !important;
+  }
+
+  .nav-action,
+  .nav-action:hover,
+  .nav-action:active,
+  .nav-action:hover .nav-action-icon {
+    transform: none !important;
+  }
+}
